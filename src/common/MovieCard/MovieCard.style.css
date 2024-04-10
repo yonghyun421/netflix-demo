@@ -50,10 +50,15 @@
   .movie-card {
     width: 90%;
     margin: 5px 0;
+    background-size: cover;
   }
 
   .movie-card:hover .overlay {
     opacity: 1;
     z-index: 100;
+  }
+
+  .overlay {
+    background-size: cover;
   }
 }
