@@ -45,3 +45,15 @@
   color: black;
   border-radius: 100%;
 }
+
+@media screen and (max-width: 1000px) {
+  .movie-card {
+    width: 90%;
+    margin: 5px 0;
+  }
+
+  .movie-card:hover .overlay {
+    opacity: 1;
+    z-index: 100;
+  }
+}

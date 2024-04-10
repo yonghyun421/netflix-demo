@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Banner from "./components/Banner/Banner";
 import PopularMovieSlide from "./components/PopularMovieSlide/PopularMovieSlide";
 import TopRatedMovieSlide from "./components/TopRatedMovieSlide/TopRatedMovieSlide";
@@ -10,12 +10,30 @@ import UpcomingMovieSlide from "./components/UpcomingMovieSlide/UpcomingMovieSli
 // 4. upcoming movie
 
 const Homepage = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth <= 768); // You can adjust the threshold as needed
+    };
+
+    checkIsMobile();
+
+    window.addEventListener("resize", checkIsMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkIsMobile);
+    };
+  }, []);
+
   return (
     <div>
       <Banner />
-      <PopularMovieSlide />
-      <TopRatedMovieSlide />
-      <UpcomingMovieSlide />
+      <div className={isMobile ? "px-3" : "px-5"}>
+        <PopularMovieSlide />
+        <TopRatedMovieSlide />
+        <UpcomingMovieSlide />
+      </div>
     </div>
   );
 };
