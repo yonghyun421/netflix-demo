@@ -2,11 +2,39 @@ import axios from "axios";
 
 const API_KEY = process.env.REACT_APP_TMDB_ACCESS_TOKEN;
 
-// eslint-disable-next-line no-unused-vars
-export const api = axios.create({
+const api = axios.create({
   baseURL: "https://api.themoviedb.org/3",
   headers: {
-    Accept: "application/json",
+    "Content-type": "application/json",
     Authorization: `Bearer ${API_KEY}`,
   },
 });
+
+api.interceptors.request.use(
+  function (config) {
+    // Do something before request is sent
+    return config;
+  },
+  function (error) {
+    // Do something with request error
+    console.log("request error", error);
+    return Promise.reject(error);
+  }
+);
+
+// Add a response interceptor
+api.interceptors.response.use(
+  function (response) {
+    // Any status code that lie within the range of 2xx cause this function to trigger
+    // Do something with response data
+    return response;
+  },
+  function (error) {
+    // Any status codes that falls outside the range of 2xx cause this function to trigger
+    // Do something with response error
+    console.log("response error", error);
+    return Promise.reject(error);
+  }
+);
+
+export default api;

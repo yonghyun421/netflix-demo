@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Banner from "./components/Banner/Banner";
 import PopularMovieSlide from "./components/PopularMovieSlide/PopularMovieSlide";
 import TopRatedMovieSlide from "./components/TopRatedMovieSlide/TopRatedMovieSlide";
 import UpcomingMovieSlide from "./components/UpcomingMovieSlide/UpcomingMovieSlide";
+import HomeBanner from "./components/HomeBanner";
 
 // 1. 배너 => popular movie 들고와서 첫번째 아이템을 보여주자
 // 2. popular movie
@@ -28,7 +28,7 @@ const Homepage = () => {
 
   return (
     <div>
-      <Banner />
+      <HomeBanner />
       <div className={isMobile ? "px-3" : "px-5"}>
         <PopularMovieSlide />
         <TopRatedMovieSlide />

@@ -6,7 +6,7 @@ import MovieCard from "../MovieCard/MovieCard";
 
 const MovieSlider = ({ title, movies, responsive }) => {
   return (
-    <div>
+    <div className="slider-container">
       <h3>{title}</h3>
       <Carousel
         infinite={true}

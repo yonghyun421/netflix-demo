@@ -1,42 +1,56 @@
 import React from "react";
-import { Badge } from "react-bootstrap";
 import "./MovieCard.style.css";
+import Badge from "react-bootstrap/Badge";
+import { useNavigate } from "react-router-dom";
 import { useMovieGenreQuery } from "../../hooks/useMovieGenre";
-
 const MovieCard = ({ movie }) => {
-  const { data: genreData } = useMovieGenreQuery();
+  const navigate = useNavigate();
+  const { data: genres } = useMovieGenreQuery();
 
   const showGenre = (genreIdList) => {
-    if (!genreData) return [];
-    const genreNameList = genreIdList.map((genreId) => {
-      const genreObj = genreData.find((genre) => genre.id === genreId);
+    if (!genres) return [];
+    const genresNameList = genreIdList.map((id) => {
+      const genreObj = genres.find((genre) => genre.id === id);
       return genreObj.name;
     });
-
-    return genreNameList;
+    return genresNameList;
   };
 
   return (
     <div
+      className="movie-card"
       style={{
         backgroundImage:
           "url(" +
-          `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}` +
+          `https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.poster_path}` +
           ")",
       }}
-      className="movie-card"
+      onClick={() => navigate(`/movies/${movie.id}`)}
     >
-      <div className="overlay">
-        <h1>{movie.title}</h1>
-        {showGenre(movie.genre_ids).map((id) => (
-          <Badge bg="danger" className="movie-badge">
-            {id}
-          </Badge>
-        ))}
-        <div className="movie-describe">
-          <Badge bg="warning">{movie.vote_average}</Badge>
-          <div>{movie.popularity}</div>
-          <div>{movie.adult ? "under 18" : "over 18"}</div>
+      <div className="overlay p-2">
+        <div>
+          <h1>{movie.title}</h1>
+          <div>
+            {showGenre(movie.genre_ids).map((genre, index) => (
+              <Badge bg="danger" key={index} className="me-1">
+                {genre}
+              </Badge>
+            ))}
+          </div>
+        </div>
+        <div className="mt-2">
+          <img src="/IMDB.png" alt="IMDB" width={20} className="me-1" />
+          {movie.popularity}
+          {movie.adult ? (
+            <img src={"/over18.svg"} alt="over18" width={20} />
+          ) : (
+            <img
+              src={"/under18.svg"}
+              alt="under18"
+              width={20}
+              className="ms-2"
+            />
+          )}
         </div>
       </div>
     </div>
